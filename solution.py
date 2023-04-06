@@ -7,11 +7,10 @@ from scipy.stats import norm
 chat_id = 485082255 # Ваш chat ID, не меняйте название переменной
 
 def solution(p: float, x: np.array) -> tuple:
-    a = 0.047
-    b = 2 * np.mean(x) - a
-    n = len(x)
-    variance = ((b - a) ** 2) / 12
-    z = norm.ppf(1 - p / 2)
-    interval = (b - z * np.sqrt(variance / n), b + z * np.sqrt(variance / n))
-    return interval
+    alpha = 1 - p
+    m = x.mean()
+    left = ( (m - 0.047) / (1 - (alpha / 2)) ) + 0.047
+    right = ( (m - 0.047) / (alpha / 2) ) + 0.047
+    return (left, right)
+
 
